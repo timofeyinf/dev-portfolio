@@ -1,0 +1,6 @@
+[submodule "external/ui-library"]
+	path = external/ui-library
+	url = git@github.com:timofeyinf/ui-library.git
+[submodule "external/utils-library"]
+	path = external/utils-library
+	url = git@github.com:timofeyinf/utils-library.git
