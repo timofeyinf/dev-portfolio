@@ -21,8 +21,11 @@ def divide(a, b):
     return a / b
 
 def power(base, exponent):
-    """Возведение в степень"""
-    return base ** exponent
+    """Возведение в степень (поддерживает отрицательные степени)"""
+    if exponent >= 0:
+        return base ** exponent
+    else:
+        return 1 / (base ** abs(exponent))
 
 if __name__ == "__main__":
     # Пример использования

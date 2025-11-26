@@ -39,5 +39,17 @@ def test_power():
     assert power(5, 0) == 1
     assert power(3, 2) == 9
 
+def test_power_negative_exponents():
+    """Тест возведения в отрицательную степень"""
+    assert power(2, -1) == 0.5
+    assert power(4, -2) == 0.0625
+    assert power(10, -3) == 0.001
+    assert power(5, -1) == 0.2
+
+def test_power_zero():
+    """Тест возведения в нулевую степень"""
+    assert power(5, 0) == 1
+    assert power(0, 0) == 1  
+
 if __name__ == "__main__":
     pytest.main([__file__])
