@@ -1,0 +1,35 @@
+---
+- name: Network diagnostics
+  hosts: lab
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Show hostname
+      ansible.builtin.debug:
+        msg: "Hostname: {{ ansible_hostname }}"
+
+    - name: Show default IPv4 address
+      ansible.builtin.debug:
+        msg: "Default IPv4: {{ ansible_default_ipv4.address }}"
+
+    - name: Show network interfaces
+      ansible.builtin.debug:
+        msg: "Interfaces: {{ ansible_interfaces }}"
+
+    - name: Show default gateway
+      ansible.builtin.debug:
+        msg: "Gateway: {{ ansible_default_ipv4.gateway }}"
+
+    - name: Show DNS servers
+      ansible.builtin.debug:
+        msg: "DNS: {{ ansible_dns.nameservers }}"
+
+    - name: Show routing table
+      ansible.builtin.command: ip route
+      register: route_result
+
+    - name: Print routing table
+      ansible.builtin.debug:
+        msg: "{{ route_result.stdout_lines }}"
+

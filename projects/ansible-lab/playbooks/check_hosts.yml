@@ -1,0 +1,24 @@
+---
+- name: Check lab hosts
+  hosts: lab
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Ping hosts
+      ansible.builtin.ping:
+
+    - name: Show uptime
+      ansible.builtin.command: uptime
+      register: uptime_result
+
+    - name: Show hostname
+      ansible.builtin.command: hostname
+      register: hostname_result
+
+    - name: Print results
+      ansible.builtin.debug:
+        msg:
+          - "Hostname: {{ hostname_result.stdout }}"
+          - "Uptime: {{ uptime_result.stdout }}"
+

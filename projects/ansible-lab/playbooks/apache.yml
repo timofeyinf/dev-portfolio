@@ -1,0 +1,41 @@
+---
+- name: Install and configure Apache
+  hosts: lab
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: true
+
+    - name: Ensure Apache is running and enabled
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: Deploy index.html
+      ansible.builtin.template:
+        src: ../files/index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+      notify: Restart Apache
+
+    - name: Check Apache is responding
+      ansible.builtin.uri:
+        url: http://localhost
+        return_content: true
+      register: apache_check
+
+    - name: Show Apache response status
+      ansible.builtin.debug:
+        msg: "Apache HTTP status: {{ apache_check.status }}"
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: apache2
+        state: restarted
